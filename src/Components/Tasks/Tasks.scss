@@ -1,0 +1,14 @@
+@import "../../scss/utils/variables";
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-20px);
+
+    @media(min-width: $md) {
+        transform: translateY(-40px);
+    }
+}
+

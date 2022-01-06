@@ -1,0 +1,40 @@
+// typography rules and typography helper classes
+@import "../utils/variables";
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;    
+
+    h1 {
+        letter-spacing: 10px;
+        text-transform: uppercase;
+        text-align: center;
+        
+        color: $VeryLightGray;
+        font-size: 28px;
+
+        @media (min-width: $md) {
+            font-size: 38px;
+            font-weight: 700;
+        }
+    }
+
+    p {
+        color: $VeryDarkGrayishBlue;
+        font-size: 12px;
+
+        @media(min-width: $sm) {
+            font-size: 14px;
+        }
+
+        @media(min-width: $md) {
+            font-size: 16px;
+        }
+
+        @media(min-width: $lg) {
+            font-size: 18px;
+        }
+        
+    }
+}
+

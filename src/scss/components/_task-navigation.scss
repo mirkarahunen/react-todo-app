@@ -1,0 +1,33 @@
+@use "../utils/variables" as *;
+
+.task-navigation {
+    
+    .navigation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 0 20px;
+        
+
+        .items-left p,
+        .clear button {
+
+            color: $DarkGrayishBlue;
+        }
+    }
+    
+    .task-statistics {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 0 20px;
+
+        .all p {
+            color: $brightBlue;
+        }
+    }
+    
+}

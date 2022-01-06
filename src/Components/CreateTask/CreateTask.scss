@@ -1,0 +1,27 @@
+@import "../../scss/utils/variables";
+
+.create-task {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media(min-width: $md) {
+        top: 100px
+    }
+
+    .create {
+        width: 100%;
+        padding: 15px 20px;
+        border: transparent;
+        border-radius: 5px;
+
+        @media (min-width: $md) {
+            padding: 20px;
+        }
+    }
+}
+
