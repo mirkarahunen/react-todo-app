@@ -2,17 +2,13 @@ import React, { useState, useContext } from 'react'
 import './SingleTask.scss'
 import remove from '../../images/icon-cross.svg'
 import { TaskContext } from '../Context/TaskContext'
-import { useDrag } from 'react-dnd'
+import { Draggable } from 'react-beautiful-dnd'
+
 
 const SingleTask = (props) => {
     const [clicked, setClicked] = useState(false)
     const Tasks = useContext(TaskContext)
-    const [{isDragging}, drag] = useDrag(() => ({
-        type: "div",
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-        })
-    }))
+
 
     const clickedTask = () => {
         if(!clicked) {
@@ -28,16 +24,25 @@ const SingleTask = (props) => {
     }
 
     return ( 
-        <div className='single-task-container' key={props.i} ref={drag} style={{backgroundColor: isDragging ? "pink" : "white"}}>
-            <div className="single-task" onClick={clickedTask}>
-                <input type="checkbox" name="checkmark" hidden/>
-                <label htmlFor="checkmark" className={!clicked ? "checkmark" : "checkmark clicked"} key={props.i}></label>
-                <p className={!clicked ? "" : "clicked"}>{props.task}</p>
+        <Draggable draggableId={`${props.id}`} key={props.id} index={props.id}>
+            {(provided, snapshot) => (
+                <div 
+                    className='single-task-container' 
+                    key={props.i} 
+                    ref={provided.innerRef} 
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                <div className="single-task" onClick={clickedTask}>
+                    <input type="checkbox" name="checkmark" hidden/>
+                    <label htmlFor="checkmark" className={!clicked ? "checkmark" : "checkmark clicked"} key={props.i}></label>
+                    <p className={!clicked ? "" : "clicked"}>{props.task}</p>
+                </div>
+                
+                <img src={remove} alt="remove" className='cross' onClick={removeTask}/>
             </div>
-            
-            <img src={remove} alt="remove" className='cross' onClick={removeTask}/>
-        </div> 
-            
+            )}
+             
+        </Draggable>    
     )
 }
 

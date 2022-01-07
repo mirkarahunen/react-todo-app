@@ -10,5 +10,9 @@
     @media(min-width: $md) {
         transform: translateY(-40px);
     }
+
+    .droppable-container {
+        width: 100%;
+    }
 }
 

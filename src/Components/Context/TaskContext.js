@@ -37,10 +37,13 @@ const TaskProvider = (props) => {
     const [allTasks, setAllTasks] = useState(() => {
         return savedTasks ? JSON.parse(savedTasks) : dummyTasks
     })
+
+    
     
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(allTasks))
     }, [allTasks, savedTasks])
+
 
     return (
         <TaskContext.Provider
