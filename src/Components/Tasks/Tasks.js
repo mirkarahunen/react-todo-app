@@ -1,46 +1,81 @@
 import React, { useContext } from 'react'
 import './Tasks.scss'
 import SingleTask from '../SingleTask/SingleTask'
-import CreateTask from '../CreateTask/CreateTask'
+import { DragDropContext } from 'react-beautiful-dnd'
 import { TaskContext } from '../Context/TaskContext'
 import { Droppable } from 'react-beautiful-dnd'
 
 const Tasks = () => {
     const Tasks = useContext(TaskContext)
+    
 
-    return (
-        <>
-            <CreateTask />
-            
+    const onEnd = (result) => {
+        if(!result.destination) return;
+
+        let array = Array.from(Tasks.allTasks)
+        const [removed] = array.splice(result.source.index, 1);
+        array.splice(result.destination.index, 0, removed);
+        localStorage.setItem("tasks", JSON.stringify(array))
+        Tasks.setAllTasks(array)
+    }
+
+    if(Tasks.filteredTasks.length > 0) {
+        return (
             <section className="tasks">
-                {Tasks.allTasks.map((task, i) => {
+                <DragDropContext onDragEnd={onEnd}>
+                {Tasks.filteredTasks.map((task, i) => {
                     return ( 
-                        <Droppable droppableId={`${i}`} key={i}>
-                             
+                        <Droppable droppableId={`${task.id}`} key={i}>
                             {(provided, snapshot) => (
                                <div className="droppable-container" 
                                     ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    >
+                                    {...provided.droppableProps}    
+                                >
                                 <SingleTask
                                     task={task.task}
                                     key={i}
-                                    id={i}
-                                    
+                                    id={task.id}
+                                    i={i}
                                 />
                                 {provided.placeholder}
                               </div> 
                             )}
-                             
-                        
                         </Droppable>
                     )
                 })}
-                
+                </DragDropContext>
             </section>
-            
-        </>
-    )
+        )
+    }
+    else {
+        return (
+                <section className="tasks">
+                    <DragDropContext onDragEnd={onEnd}>
+                    {Tasks.allTasks.map((task, i) => {
+                        return ( 
+                            <Droppable droppableId={`${task.id}`} key={i}>
+                                {(provided, snapshot) => (
+                                   <div className="droppable-container" 
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}    
+                                    >
+                                    <SingleTask
+                                        task={task.task}
+                                        key={i}
+                                        id={task.id}
+                                        i={i}
+                                    />
+                                    {provided.placeholder}
+                                  </div> 
+                                )}
+                            </Droppable>
+                        )
+                    })}
+                    </DragDropContext>
+                </section>
+        )
+    }
+    
 }
 
 export default Tasks

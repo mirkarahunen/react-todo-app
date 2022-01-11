@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import './CreateTask.scss'
 import { TaskContext } from '../Context/TaskContext'
-
 
 const CreateTask = () => {
     const Tasks = useContext(TaskContext)
@@ -9,18 +8,25 @@ const CreateTask = () => {
     const [newTodo, setNewTodo] = useState({})
 
     const setTaskValue = (e) => {
-        setInputVal(e.target.value);
+        setInputVal(e.target.value[0].toUpperCase() + e.target.value.slice(1));
     }
 
-    const addNewTask = (event) => {
+    const addNewTask = useCallback((event) => {
         event.preventDefault();
+        
+        newTodo.id = Date.now() + Math.random()
         Tasks.setAllTasks([...Tasks.allTasks, newTodo])
-    }
-   
+    }, [newTodo, Tasks])
+
+
     useEffect(() => {
-        if(inputVal.length >0) {
-            setNewTodo({task: inputVal[0].toUpperCase() + inputVal.slice(1), done: false})
+        
+        if(inputVal.length > 0) {
+            setNewTodo({id: 0, task: inputVal, done: false})
+        } else {
+            return
         }
+        
     }, [inputVal])
 
     

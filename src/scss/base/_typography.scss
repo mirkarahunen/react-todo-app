@@ -36,5 +36,10 @@ body {
         }
         
     }
-}
+
+    button[type=button] {
+        color: $VeryDarkGrayishBlue;
+        font-size: 12px;
+    }
+}    
 

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import './App.scss';
 import '../src/scss/main.scss'
 
@@ -7,39 +7,28 @@ import './scss/base/_globals.scss'
 import './scss/base/_typography.scss'
 import './scss/base/normalize.css'
 
-import { DragDropContext } from 'react-beautiful-dnd'
 
+import CreateTask from './Components/CreateTask/CreateTask';
 import Header from './Components/Header/Header';
 import Tasks from './Components/Tasks/Tasks';
-import {TaskContext} from './Components/Context/TaskContext';
-import TaskProvider from './Components/Context/TaskContext';
+import TaskNav from './Components/TaskNav/TaskNav';
 
+import TaskProvider from './Components/Context/TaskContext';
+import { TaskContext } from './Components/Context/TaskContext';
 
 const App = () => {
-    const TasksPro = useContext(TaskContext)
-
-    const reorder = (startIndex, endIndex) => {
-        const array = TasksPro.allTasks
-        const [removed] = TasksPro.allTasks.splice(startIndex, 1)
-        TasksPro.allTasks.splice(endIndex, 0, removed)
-
-        return array
-    }
- 
-    const onEnd = (result) => {
-        TasksPro.setAllTasks(reorder(result.source.index, result.destination.index))
-        localStorage.setItem("tasks", JSON.stringify(TasksPro.allTasks))
-    }
-
-
+    const TasksContext = useContext(TaskContext)
+    
     return (
         <TaskProvider>
-            <DragDropContext onDragEnd={onEnd}>
+            
                 <div className="App">
                     <Header />
+                    <CreateTask />
                     <Tasks />
+                    <TaskNav items={TasksContext.allTasks}/>
                 </div>
-            </DragDropContext>
+            
         </TaskProvider>        
     );
 }
