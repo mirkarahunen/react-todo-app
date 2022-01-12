@@ -12,6 +12,7 @@ const TaskNav = (props) => {
     const activeItems = props.items.filter(item => item.done !== true)
     const completedItems = props.items.filter(item => item.done === true)
 
+    console.log(props);
     useEffect(() => {
 
         if(window.innerWidth >= 640) {
@@ -21,7 +22,8 @@ const TaskNav = (props) => {
             setFullwidth(true)
             setFullContainer(true)
         }
-    }, [])
+        console.log(completedItems);
+    }, [completedItems, active, activeItems])
 
     const clickedActive = (e) => {
         setCurrentTab(e.target.name)

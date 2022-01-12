@@ -51,8 +51,8 @@ const TaskProvider = (props) => {
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(allTasks))
 
-       
-    }, [allTasks, savedTasks])
+       console.log(allTasks);
+    }, [allTasks, savedTasks, filteredTasks])
 
     //console.log(savedTasks);
 

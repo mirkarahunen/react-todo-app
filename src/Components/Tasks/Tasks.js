@@ -18,32 +18,33 @@ const Tasks = () => {
         localStorage.setItem("tasks", JSON.stringify(array))
         Tasks.setAllTasks(array)
     }
-
+      
     if(Tasks.filteredTasks.length > 0) {
         return (
             <section className="tasks">
                 <DragDropContext onDragEnd={onEnd}>
-                {Tasks.filteredTasks.map((task, i) => {
-                    return ( 
-                        <Droppable droppableId={`${task.id}`} key={i}>
-                            {(provided, snapshot) => (
-                               <div className="droppable-container" 
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}    
-                                >
-                                <SingleTask
-                                    task={task.task}
-                                    key={i}
-                                    id={task.id}
-                                    i={i}
-                                />
-                                {provided.placeholder}
-                              </div> 
-                            )}
-                        </Droppable>
-                    )
-                })}
-                </DragDropContext>
+                            <Droppable droppableId="doppable">
+                                {(provided, snapshot) => (
+                                   <div className="droppable-container" 
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps} 
+                                        style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
+                                    >
+                                        {Tasks.filteredTasks.map((task, i) => {
+                                            return ( 
+                                                <SingleTask
+                                                    task={task.task}
+                                                    key={i}
+                                                    id={task.id}
+                                                    i={i}
+                                                />
+                                            )
+                                        })}
+                                    {provided.placeholder}
+                                  </div> 
+                                )}
+                            </Droppable>
+                    </DragDropContext>
             </section>
         )
     }
@@ -51,26 +52,27 @@ const Tasks = () => {
         return (
                 <section className="tasks">
                     <DragDropContext onDragEnd={onEnd}>
-                    {Tasks.allTasks.map((task, i) => {
-                        return ( 
-                            <Droppable droppableId={`${task.id}`} key={i}>
+                            <Droppable droppableId="doppable">
                                 {(provided, snapshot) => (
                                    <div className="droppable-container" 
                                         ref={provided.innerRef}
-                                        {...provided.droppableProps}    
+                                        {...provided.droppableProps}
+                                        style={{ background:  snapshot.isDraggingOver ? "#ccc" : "white" }} 
                                     >
-                                    <SingleTask
-                                        task={task.task}
-                                        key={i}
-                                        id={task.id}
-                                        i={i}
-                                    />
+                                        {Tasks.allTasks.map((task, i) => {
+                                            return ( 
+                                                <SingleTask
+                                                    task={task.task}
+                                                    key={i}
+                                                    id={task.id}
+                                                    i={i}
+                                                />
+                                            )
+                                        })}
                                     {provided.placeholder}
                                   </div> 
                                 )}
                             </Droppable>
-                        )
-                    })}
                     </DragDropContext>
                 </section>
         )

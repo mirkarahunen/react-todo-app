@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.scss';
 import '../src/scss/main.scss'
 
@@ -18,6 +18,10 @@ import { TaskContext } from './Components/Context/TaskContext';
 
 const App = () => {
     const TasksContext = useContext(TaskContext)
+
+    useEffect(() => {
+
+    }, [TasksContext.allTask])
     
     return (
         <TaskProvider>

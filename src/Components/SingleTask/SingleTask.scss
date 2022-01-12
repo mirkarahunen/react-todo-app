@@ -3,10 +3,7 @@
 .task {
     display: flex;
     justify-content: space-between;
-    //padding-right: 20px;
     align-items: center;
-    //border-bottom: 1px solid $LightGrayishBlue;
-    //border-radius: 5px;
     
 
     @media (min-width: $md) {
@@ -20,6 +17,7 @@
     
     .single-task {
         position: relative;
+        transition: all .5s ease;
         
         //padding-left: 70px;
     
@@ -52,11 +50,11 @@
                 display: none;
             }
     
-            &.clicked {
+            &.done {
                 background: linear-gradient(140deg,#57ddff, #c058f3);
             }
     
-            &.clicked::after {
+            &.done::after {
                 display: block;
             }
             
@@ -72,7 +70,7 @@
             }
         }
     
-        p.clicked {
+        p.done {
             text-decoration: line-through;
             color: $DarkGrayishBlue;
         }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './SingleTask.scss'
 import remove from '../../images/icon-cross.svg'
 import { TaskContext } from '../Context/TaskContext'
@@ -12,6 +12,7 @@ const SingleTask = (props) => {
 
     const clickedTask = () => {
         const filteredTask = Tasks.allTasks.map(task => task.id === props.id ? {...task, done: !task.done } : task)
+        //Tasks.setFilteredTasks(filteredTask)
 
         if(!clicked) {
             setClicked(true)
@@ -28,6 +29,11 @@ const SingleTask = (props) => {
         Tasks.setAllTasks(newArray)
     }
 
+    useEffect(() => {
+
+    }, [clicked, Tasks.allTasks])
+
+
     return ( 
         <Draggable draggableId={`${props.id}`} key={props.i} index={props.i} >
           
@@ -37,14 +43,13 @@ const SingleTask = (props) => {
                     onClick={clickedTask}
                     key={props.i} 
                     ref={provided.innerRef} 
-                    
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     >
                 <div className="container single-task" >
                     <input type="checkbox" name="checkmark" hidden/>
-                    <label htmlFor="checkmark" className={!clicked ? "checkmark" : "checkmark clicked"} key={props.i}></label>
-                    <p className={!clicked ? "" : "clicked"}>{props.task}</p>
+                    <label htmlFor="checkmark" className={!clicked ? "checkmark" : "checkmark done"} key={props.i}></label>
+                    <p className={!clicked ? "" : "done"} >{props.task}</p>
                 </div>
                 
                 <img src={remove} alt="remove" className='cross' onClick={removeTask}/>
