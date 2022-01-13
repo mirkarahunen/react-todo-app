@@ -47,11 +47,25 @@ const TaskProvider = (props) => {
     })
 
     const [filteredTasks, setFilteredTasks] = useState([])
+    const [currentTab, setCurrentTab] = useState('Active')
+    const [completedTasks, setCompletedTasks] = useState([])
+    const [activeTasks, setActiveTasks] = useState([])
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(allTasks))
 
-       console.log(allTasks);
+        const getItems = () => {
+            const complete = allTasks.filter(task => task.done === true)
+            console.log(complete);
+            setCompletedTasks(complete)
+
+            const active = allTasks.filter(task => task.done !== true)
+            console.log(active);
+            setActiveTasks(active)
+        }
+
+        getItems()
+  
     }, [allTasks, savedTasks, filteredTasks])
 
     //console.log(savedTasks);
@@ -63,7 +77,13 @@ const TaskProvider = (props) => {
                 allTasks,
                 setAllTasks,
                 filteredTasks,
-                setFilteredTasks
+                setFilteredTasks,
+                currentTab,
+                setCurrentTab,
+                completedTasks,
+                setCompletedTasks,
+                activeTasks,
+                setActiveTasks
             }}>
                 {props.children}
         </TaskContext.Provider>

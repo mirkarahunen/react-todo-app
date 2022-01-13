@@ -8,11 +8,11 @@ const TaskNav = (props) => {
     const [fullContainer, setFullContainer] = useState(true)
     //console.log(window.matchMedia('(min-width: 640px)'));
     const [active, setActive] = useState(true)
-    const [currentTab, setCurrentTab] = useState('Active')
-    const activeItems = props.items.filter(item => item.done !== true)
-    const completedItems = props.items.filter(item => item.done === true)
+    
+    //const activeItems = props.items.filter(item => item.done !== true)
+    //const completedItems = props.items.filter(item => item.done === true)
 
-    console.log(props);
+   
     useEffect(() => {
 
         if(window.innerWidth >= 640) {
@@ -22,38 +22,38 @@ const TaskNav = (props) => {
             setFullwidth(true)
             setFullContainer(true)
         }
-        console.log(completedItems);
-    }, [completedItems, active, activeItems])
+        
+    }, [])
 
-    const clickedActive = (e) => {
-        setCurrentTab(e.target.name)
-
-        if(currentTab === "All") {
+    useEffect(() => {
+        
+        if(Tasks.currentTab === "All") {
             setActive(true)
-            Tasks.setFilteredTasks([])
+            //Tasks.setFilteredTasks([])
         }
 
-        else if(currentTab === "Active") {
+        else if(Tasks.currentTab === "Active") {
             setActive(true)
-            Tasks.setFilteredTasks(activeItems)
+            //Tasks.setFilteredTasks(activeItems)
         }
 
-        else if(currentTab === "Completed") {
+        else if(Tasks.currentTab === "Completed") {
             setActive(true)
-            Tasks.setFilteredTasks(completedItems)
+            //Tasks.setFilteredTasks(completedItems)
         }
 
-        if(!currentTab && active) {
+        if(!Tasks.currentTab && active) {
             setActive(false)
         }
-    }
+
+    }, [Tasks.currentTab, active])
+
 
     const removeCompleted = () => {
         const newTasks = props.items.filter(item => item.done !== true)
         Tasks.setAllTasks(newTasks)
     }
 
-    
   
 
     return (
@@ -65,13 +65,13 @@ const TaskNav = (props) => {
                     </button>
                 </div>
                 <div className={fullwidth ? `container filter fullwidth` : `container filter`}>
-                    <button type='button' onClick={clickedActive} name='All' className={currentTab === "All" && active ? 'btn active' : 'btn'}>
+                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='All' className={Tasks.currentTab === "All" && active ? 'btn active' : 'btn'}>
                         All
                     </button>        
-                    <button type='button' onClick={clickedActive} name='Active' className={currentTab === "Active" && active ? 'btn active' : 'btn'}>
+                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Active' className={Tasks.currentTab === "Active" && active ? 'btn active' : 'btn'}>
                         Active
                     </button>        
-                    <button type='button' onClick={clickedActive} name='Completed' className={currentTab === "Completed" && active ? 'btn active' : 'btn'}>
+                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Completed' className={Tasks.currentTab === "Completed" && active ? 'btn active' : 'btn'}>
                         Completed
                     </button>        
                 </div>

@@ -8,12 +8,12 @@ import { Draggable } from 'react-beautiful-dnd'
 const SingleTask = (props) => {
     const [clicked, setClicked] = useState(false)
     const Tasks = useContext(TaskContext)
+    //const [done, setDone] = useState(false)
     
-
     const clickedTask = () => {
         const filteredTask = Tasks.allTasks.map(task => task.id === props.id ? {...task, done: !task.done } : task)
         //Tasks.setFilteredTasks(filteredTask)
-
+        
         if(!clicked) {
             setClicked(true)
             Tasks.setAllTasks(filteredTask)
@@ -30,13 +30,13 @@ const SingleTask = (props) => {
     }
 
     useEffect(() => {
+        
+    }, [clicked, Tasks.allTasks, props.id])
 
-    }, [clicked, Tasks.allTasks])
 
-
+ 
     return ( 
         <Draggable draggableId={`${props.id}`} key={props.i} index={props.i} >
-          
             {(provided, snapshot) => (
                 <div 
                     className='wrapper task' 
@@ -48,10 +48,9 @@ const SingleTask = (props) => {
                     >
                 <div className="container single-task" >
                     <input type="checkbox" name="checkmark" hidden/>
-                    <label htmlFor="checkmark" className={!clicked ? "checkmark" : "checkmark done"} key={props.i}></label>
-                    <p className={!clicked ? "" : "done"} >{props.task}</p>
+                    <label htmlFor="checkmark" className={props.done ? "checkmark done" : "checkmark"} key={props.i}></label>
+                    <p className={ props.done ? "done" : ""} >{props.task}</p>
                 </div>
-                
                 <img src={remove} alt="remove" className='cross' onClick={removeTask}/>
             </div>
             
