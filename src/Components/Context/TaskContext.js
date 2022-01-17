@@ -56,11 +56,9 @@ const TaskProvider = (props) => {
 
         const getItems = () => {
             const complete = allTasks.filter(task => task.done === true)
-            console.log(complete);
             setCompletedTasks(complete)
 
             const active = allTasks.filter(task => task.done !== true)
-            console.log(active);
             setActiveTasks(active)
         }
 

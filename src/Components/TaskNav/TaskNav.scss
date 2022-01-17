@@ -4,10 +4,32 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     color: $DarkGrayishBlue;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    &.Light {
+        box-shadow: 0 0 20px 1px #ccc;
+
+        &.wide {
+            box-shadow: 0 0 20px 1px #ccc;
+        }
+    }
+
+    &.Dark {
+        box-shadow: 0 0 20px 1px black;
+
+        &.wide {
+            box-shadow: 0 0 20px 1px black;
+        }
+    }
+    
 
     &.wide {
         //display: grid;
         grid-template-columns: repeat(2, 1fr);
+        row-gap: 10px;
+
+
     }
     
     .container {
@@ -46,7 +68,6 @@
         &.fullwidth {
             grid-row: 2/3;
             grid-column: 1/-1;
-            margin-top: 20px;
             padding: 0 20px;
         }
     }

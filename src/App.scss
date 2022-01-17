@@ -1,5 +1,17 @@
+@import "./scss/utils/variables";
+
 .App {
   text-align: center;
+  min-height: 100vh;
+  transition: all .5s ease;
+
+    &.Light {
+        background-color: $VeryLightGray;
+    }
+
+    &.Dark {
+        background-color: $VeryDarkBlue;
+    }
 }
 
 

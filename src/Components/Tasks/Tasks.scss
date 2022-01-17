@@ -17,7 +17,14 @@
 
     .droppable-container {
         width: 100%;
-        margin-bottom: 3px;
+
+        &.Dark {
+            box-shadow: 0 0 20px 1px black;
+        }
+        
+        &.Light {
+            box-shadow: 0 0 20px 1px #ccc;
+        }
     }
 }
 

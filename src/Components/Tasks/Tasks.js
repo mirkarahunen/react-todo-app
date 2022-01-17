@@ -4,10 +4,11 @@ import SingleTask from '../SingleTask/SingleTask'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { TaskContext } from '../Context/TaskContext'
 import { Droppable } from 'react-beautiful-dnd'
+import { ThemeContext } from '../Context/ThemeContext'
 
 const Tasks = () => {
     const Tasks = useContext(TaskContext)
-    
+    const Theme = useContext(ThemeContext)
 
     const onEnd = (result) => {
         if(!result.destination) return;
@@ -18,7 +19,8 @@ const Tasks = () => {
         localStorage.setItem("tasks", JSON.stringify(array))
         Tasks.setAllTasks(array)
     }
-      
+
+
     if(Tasks.currentTab === "Completed") {
         if(Tasks.completedTasks.length > 0) {
             return (
@@ -26,7 +28,7 @@ const Tasks = () => {
                     <DragDropContext onDragEnd={onEnd}>
                         <Droppable droppableId="doppable">
                             {(provided, snapshot) => (
-                            <div className="droppable-container" 
+                            <div className={`droppable-container ${Theme.theme}`} 
                                     ref={provided.innerRef}
                                     {...provided.droppableProps} 
                                     style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
@@ -61,7 +63,7 @@ const Tasks = () => {
                     <DragDropContext onDragEnd={onEnd}>
                         <Droppable droppableId="doppable">
                             {(provided, snapshot) => (
-                            <div className="droppable-container" 
+                            <div className={`droppable-container ${Theme.theme}`} 
                                     ref={provided.innerRef}
                                     {...provided.droppableProps} 
                                     style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
@@ -90,44 +92,47 @@ const Tasks = () => {
         )
     }
 } else {
-    if(Tasks.allTasks.length > 0) {
-        return (
-            <section className="tasks">
-                <DragDropContext onDragEnd={onEnd}>
-                    <Droppable droppableId="doppable">
-                        {(provided, snapshot) => (
-                        <div className="droppable-container" 
-                                ref={provided.innerRef}
-                                {...provided.droppableProps} 
-                                style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
-                            >
-                                {Tasks.allTasks.map((task,i) => (
-                                    
-                                    <SingleTask
-                                            task={task.task}
-                                            key={i}
-                                            id={task.id}
-                                            i={i}
-                                            done={task.done}
-                                        />
-                                        ))
-                                }   
-                                {provided.placeholder}
-                            </div> 
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            </section>
-        )
-    } else {
-        return (
-            <h2>Your Todo app is empty. Add a new todo in the field above!</h2>
-        )
-    } 
+        if(Tasks.allTasks.length > 0) {
+            return (
+                <section className="tasks">
+                    <DragDropContext onDragEnd={onEnd}>
+                        <Droppable droppableId="doppable">
+                            {(provided, snapshot) => (
+                            <div className={`droppable-container ${Theme.theme}`} 
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps} 
+                                    style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
+                                >
+                                    {Tasks.allTasks.map((task,i) => (
+                                        
+                                        <SingleTask
+                                                task={task.task}
+                                                key={i}
+                                                id={task.id}
+                                                i={i}
+                                                done={task.done}
+                                            />
+                                            ))
+                                    }   
+                                    {provided.placeholder}
+                                </div> 
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </section>
+            )  
+        } else {
+            return (
+                <h2>Your Todo app is empty. Add a new todo in the field above</h2>
+            )
+        } 
+    }
+      
+   /*  */
 } 
    
     
-}
+
 
 export default Tasks
 

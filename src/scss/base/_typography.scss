@@ -3,15 +3,30 @@
 
 body {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 400;    
+    font-weight: 400;   
+
+    .App {
+        &.Light {
+            p {
+                color: $VeryDarkGrayishBlue;
+            }        
+        }
+    
+        &.Dark {
+            p {
+                color: $LightGrayishBlue;
+            }
+        }
+    }
+    
+    
 
     h1 {
         letter-spacing: 10px;
         text-transform: uppercase;
-        text-align: center;
-        
-        color: $VeryLightGray;
+        text-align: center;        
         font-size: 28px;
+        color: $VeryLightGray;
 
         @media (min-width: $md) {
             font-size: 38px;
@@ -20,7 +35,6 @@ body {
     }
 
     p {
-        color: $VeryDarkGrayishBlue;
         font-size: 12px;
 
         @media(min-width: $sm) {
@@ -39,6 +53,10 @@ body {
 
     button[type=button] {
         color: $VeryDarkGrayishBlue;
+        font-size: 12px;
+    }
+
+    span {
         font-size: 12px;
     }
 }    

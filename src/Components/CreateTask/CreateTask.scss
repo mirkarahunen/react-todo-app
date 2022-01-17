@@ -19,6 +19,14 @@
         border: transparent;
         border-radius: 5px;
 
+        &.Light {
+            background-color: white;
+        }
+    
+        &.Dark {
+            background-color: $VeryDarkDesaturatedBlue;
+        }
+
         @media (min-width: $md) {
             padding: 20px;
         }

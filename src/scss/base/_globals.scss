@@ -9,7 +9,6 @@
 html,
 body {
     height: 100%;
-    background-color: $VeryLightGray;
 }
 
 ul {
@@ -56,8 +55,16 @@ section,
     padding-left: 45px;
     justify-content: space-between;
     padding-right: 20px;
-    min-height: 30px;
-    background-color: white;
+    min-height: 40px;
+    
+
+    &.Light {
+        background-color: white;
+    }
+    
+    &.Dark {
+        background-color: $VeryDarkDesaturatedBlue;
+    }
 
     @media (min-width: $sm) {
         padding-left: 60px;   

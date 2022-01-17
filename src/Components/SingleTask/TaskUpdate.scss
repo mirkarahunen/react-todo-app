@@ -1,0 +1,14 @@
+.task-update { 
+    display: none;
+
+    &.animation {
+        display: block;
+        opacity: 0;
+        animation: showBanner 2s ease-in-out;
+    }
+}
+
+@keyframes showBanner {
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
+}

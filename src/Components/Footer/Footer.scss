@@ -1,0 +1,18 @@
+@import "../../scss/utils/variables";
+
+.footer {
+    display: inline-block;
+    padding: 40px 0;
+
+    &.Light {
+        span {
+            color: $VeryDarkGrayishBlue;
+        }
+    }
+
+    &.Dark {
+        span {
+            color: $VeryDarkerGrayishBlue;
+        }
+    }
+}

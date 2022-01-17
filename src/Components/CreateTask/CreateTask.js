@@ -1,18 +1,24 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react'
 import './CreateTask.scss'
 import { TaskContext } from '../Context/TaskContext'
+import { ThemeContext } from '../Context/ThemeContext'
 
 const CreateTask = () => {
     const Tasks = useContext(TaskContext)
+    const Theme = useContext(ThemeContext)
     const [inputVal, setInputVal] = useState("")
     const [newTodo, setNewTodo] = useState({})
 
     const setTaskValue = (e) => {
-        setInputVal(e.target.value[0].toUpperCase() + e.target.value.slice(1));
+        if(e.target.value.length === 0) {
+            setInputVal("")
+        } else {
+            setInputVal(e.target.value[0].toUpperCase() + e.target.value.slice(1));
+        }
     }
 
     const addNewTask = useCallback((event) => {
-        event.preventDefault();
+        //event.preventDefault();
         
         newTodo.id = Date.now() + Math.random()
         Tasks.setAllTasks([...Tasks.allTasks, newTodo])
@@ -31,9 +37,9 @@ const CreateTask = () => {
 
     
     return (
-        <section className="create-task">
+        <section className={`create-task`}>
             <form onSubmit={addNewTask}>
-                <input className="create" type="text" onChange={setTaskValue} value={inputVal} placeholder="Create a new todo..."/>
+                <input className={`create ${Theme.theme}`} type="text" onChange={setTaskValue} value={inputVal} placeholder="Create a new todo..."/>
             </form>
         </section>
     )
