@@ -47,8 +47,6 @@ const SingleTask = (props) => {
         Tasks.setAllTasks(newArray)
     }
 
-   
-
 
  if(animation) {
     return (
@@ -64,22 +62,28 @@ const SingleTask = (props) => {
     )
  } else {
     return ( 
-        <Draggable draggableId={`${props.id}`} key={props.i} index={props.i} >
+        <Draggable draggableId={`${props.id}`} key={props.i} index={props.i} className={`${Theme.theme} `} >
             {(provided, snapshot) => (
                 <div 
                     className='wrapper task' 
-                    onClick={clickedTask}
+                    //
                     key={props.i} 
                     ref={provided.innerRef} 
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     >
-                <div className={`container ${Theme.theme} single-task`}>
+                <div className="container single-task" onClick={clickedTask}>
                     <input type="checkbox" name="checkmark" hidden/>
                     <label htmlFor="checkmark" className={props.done ? `checkmark done ${Theme.theme}` : `checkmark ${Theme.theme}`} key={props.i}></label>
                     <p className={ props.done ? "done" : ""} >{props.task}</p>
-                    <img src={remove} alt="remove" className='cross' onClick={removeTask}/>
+                    
+                    
                 </div>
+
+                <picture onClick={removeTask}  className='remove'>
+                    <source />
+                    <img src={remove} alt="remove"/>
+                </picture>
                 
             </div>
             

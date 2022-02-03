@@ -35,19 +35,20 @@ body {
     }
 
     p {
-        font-size: 12px;
+        //font-size: 12px;
+        font-size: calc(12px + (18 - 12) * (100vw - 375px) / (1440 - 375));
 
-        @media(min-width: $sm) {
-            font-size: 14px;
-        }
+        // @media(min-width: $sm) {
+        //     font-size: 14px;
+        // }
 
-        @media(min-width: $md) {
-            font-size: 16px;
-        }
+        // @media(min-width: $md) {
+        //     font-size: 16px;
+        // }
 
-        @media(min-width: $lg) {
-            font-size: 18px;
-        }
+        // @media(min-width: $lg) {
+        //     font-size: 18px;
+        // }
         
     }
 
@@ -57,7 +58,11 @@ body {
     }
 
     span {
-        font-size: 12px;
+        font-size: 14px;
+    }
+
+    input[type=text] {
+        font-size: calc(12px + (18 - 12) * (100vw - 375px) / (1440 - 375));
     }
 }    
 

@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     //transform: translateY(-20px);
-    margin-top: -20px;
+    margin-top: -25px;
     
 
     @media(min-width: $md) {
@@ -17,13 +17,15 @@
 
     .droppable-container {
         width: 100%;
+        z-index: 100;
 
         &.Dark {
             box-shadow: 0 0 20px 1px black;
         }
         
         &.Light {
-            box-shadow: 0 0 20px 1px #ccc;
+            box-shadow: 0 0 20px 1px rgba(#ccc, .3);
+            background-color: white;
         }
     }
 }

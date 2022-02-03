@@ -13,7 +13,10 @@ const Header = () => {
         <header className={`${Theme.theme}`}>
             <div className={`header`}>
                 <h1>Todo</h1>
-                <img src={Theme.theme === "Light" ? moonIMG : sunIMG} alt="Mode" onClick={Theme.changeMode}/>
+                <picture onClick={Theme.changeMode} alt="Mode">
+                    <source srcSet={Theme.theme === "Light" ? moonIMG : sunIMG}/>
+                    <img src={Theme.theme === "Light" ? moonIMG : sunIMG} alt="Mode"/>
+                </picture>
             </div>  
         </header>
     )

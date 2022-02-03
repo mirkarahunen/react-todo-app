@@ -53,27 +53,33 @@ const TaskNav = (props) => {
     return (
         <section>
             <div className={fullContainer ? `wrapper task-nav ${Theme.theme} wide` : `wrapper ${Theme.theme} task-nav`}>
-                <div className={`container ${Theme.theme} items`}>
-                    <button type='button' name="items">
-                        {Tasks.allTasks.length} Items left
-                    </button>
+                <div className='button-wrapper'>
+                    <div className={`container ${Theme.theme} items`}>
+                        <button type='button' name="items">
+                            {Tasks.allTasks.length} Items left
+                        </button>
+                    </div>
+
+                    <div className={fullwidth ? `container ${Theme.theme} filter fullwidth` : `container ${Theme.theme} filter`}>
+                        <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='All' className={Tasks.currentTab === "All" && active ? 'btn active' : 'btn'}>
+                            All
+                        </button>        
+                        <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Active' className={Tasks.currentTab === "Active" && active ? 'btn active' : 'btn'}>
+                            Active
+                        </button>        
+                        <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Completed' className={Tasks.currentTab === "Completed" && active ? 'btn active' : 'btn'}>
+                            Completed
+                        </button>        
+                    </div>
+                    
+                    <div className={`container ${Theme.theme} clear`}>
+                        <button type='button' name='clear' onClick={removeCompleted}>
+                            Clear Completed
+                        </button>
+                    </div>
+                    
                 </div>
-                <div className={fullwidth ? `container ${Theme.theme} filter fullwidth` : `container ${Theme.theme} filter`}>
-                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='All' className={Tasks.currentTab === "All" && active ? 'btn active' : 'btn'}>
-                        All
-                    </button>        
-                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Active' className={Tasks.currentTab === "Active" && active ? 'btn active' : 'btn'}>
-                        Active
-                    </button>        
-                    <button type='button' onClick={(e) => Tasks.setCurrentTab(e.target.name)} name='Completed' className={Tasks.currentTab === "Completed" && active ? 'btn active' : 'btn'}>
-                        Completed
-                    </button>        
-                </div>
-                <div className={`container ${Theme.theme} clear`}>
-                    <button type='button' name='clear' onClick={removeCompleted}>
-                        Clear Completed
-                    </button>
-                </div>
+                
             </div>
         </section>
     )
