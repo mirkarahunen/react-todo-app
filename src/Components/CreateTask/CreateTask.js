@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './CreateTask.scss'
 import { TaskContext } from '../Context/TaskContext'
 import { ThemeContext } from '../Context/ThemeContext'
@@ -17,12 +17,14 @@ const CreateTask = () => {
         }
     }
 
-    const addNewTask = useCallback((event) => {
-        //event.preventDefault();
-        
-        newTodo.id = Date.now() + Math.random()
+    const addNewTask = (event) => {
+        event.preventDefault();
+        const highestID = Math.max(...Tasks.allTasks.map(item => item.id))
+      
+        newTodo.id = highestID + 1 
         Tasks.setAllTasks([...Tasks.allTasks, newTodo])
-    }, [newTodo, Tasks])
+        setInputVal("")
+    }
 
 
     useEffect(() => {

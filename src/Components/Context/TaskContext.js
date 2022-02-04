@@ -11,32 +11,32 @@ const TaskProvider = (props) => {
     const savedTasks = localStorage.getItem("tasks")
     const dummyTasks = [
         {
-            id: (Date.now() + Math.random()),
+            id: 1,
             task: "Complete online Javascript course",
             done: false
         },
         {
-            id: Date.now() + Math.random(),
+            id: 2,
             task: "Jog around the park",
             done: false
         },
         {
-            id: Date.now() + Math.random(),
+            id: 3,
             task: "10 minutes meditation",
             done: false
         },
         {
-            id: Date.now() + Math.random(),
+            id: 4,
             task: "Read for one hour",
             done: false
         },
         {
-            id: Date.now() + Math.random(),
+            id: 5,
             task: "Pick up groceries",
             done: false
         }, 
         {
-            id: Date.now() + Math.random(),
+            id: 6,
             task: "Complete ToDo App on Frontend Mentor",
             done: false
         }

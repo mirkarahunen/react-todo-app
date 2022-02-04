@@ -20,18 +20,36 @@ const Tasks = () => {
         Tasks.setAllTasks(array)
     }
 
+    const onCompletedEnd = (result) => {
+        if(!result.destination) return;
+        let array = Array.from(Tasks.allTasks.filter(item => item.done === true))
+        //console.log(array);
+        const [removed] = array.splice(result.source.index, 1);
+        array.splice(result.destination.index, 0, removed);
+        Tasks.setCompletedTasks(array)
+    }
+
+    const onActivedEnd = (result) => {
+        if(!result.destination) return;
+        let array = Array.from(Tasks.allTasks.filter(item => item.done !== true))
+        //console.log(array);
+        const [removed] = array.splice(result.source.index, 1);
+        array.splice(result.destination.index, 0, removed);
+        Tasks.setActiveTasks(array)
+    }
+
 
     if(Tasks.currentTab === "Completed") {
         if(Tasks.completedTasks.length > 0) {
             return (
                 <section className="tasks">
-                    <DragDropContext onDragEnd={onEnd}>
-                        <Droppable droppableId="doppable">
+                    <DragDropContext onDragEnd={onCompletedEnd}>
+                        <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                             <div className={`droppable-container ${Theme.theme}`} 
                                     ref={provided.innerRef}
                                     {...provided.droppableProps} 
-                                    style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
+                                    style={ snapshot.isDraggingOver ? { background: "#ddd" } : null }    
                                 >
                                     {Tasks.completedTasks.map((task,i) => (
                                         
@@ -53,20 +71,24 @@ const Tasks = () => {
             )
     } else {
         return (
-            <h2>Sorry, no tasks here</h2>
+            <section className='tasks'>
+                <div className={`droppable-container ${Theme.theme}`} >
+                    <h2>Sorry, no tasks here</h2>
+                </div>
+            </section>
         )
     }
     } else if(Tasks.currentTab === "Active") {
         if(Tasks.activeTasks.length > 0) {
             return (
                 <section className="tasks">
-                    <DragDropContext onDragEnd={onEnd}>
-                        <Droppable droppableId="doppable">
+                    <DragDropContext onDragEnd={onActivedEnd}>
+                        <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                             <div className={`droppable-container ${Theme.theme}`} 
                                     ref={provided.innerRef}
                                     {...provided.droppableProps} 
-                                    style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
+                                    style={ snapshot.isDraggingOver ? { background: "#ddd" } : null }    
                                 >
                                     {Tasks.activeTasks.map((task,i) => (
                                         
@@ -88,7 +110,11 @@ const Tasks = () => {
             )
     } else {
         return (
-            <h2>Sorry, no tasks here</h2>
+            <section className='tasks'>
+                <div className={`droppable-container ${Theme.theme}`} >
+                    <h2>Sorry, no tasks here</h2>
+                </div>
+            </section>
         )
     }
 } else {
@@ -96,12 +122,12 @@ const Tasks = () => {
             return (
                 <section className="tasks">
                     <DragDropContext onDragEnd={onEnd}>
-                        <Droppable droppableId="doppable">
+                        <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                             <div className={`droppable-container ${Theme.theme}`} 
                                     ref={provided.innerRef}
                                     {...provided.droppableProps} 
-                                    style={ snapshot.isDraggingOver ? { background: "#ccc" } : null }    
+                                    style={ snapshot.isDraggingOver ? { background: "#ddd" } : null }    
                                 >
                                     {Tasks.allTasks.map((task,i) => (
                                         
@@ -123,55 +149,14 @@ const Tasks = () => {
             )  
         } else {
             return (
-                <h2>Your Todo app is empty. Add a new todo in the field above</h2>
+                <section className='tasks'>
+                <div className={`droppable-container ${Theme.theme}`} >
+                    <h2>Your Todo app is empty. Add a new todo in the field above.</h2>
+                </div>
+            </section>
             )
         } 
     }
-      
-   /*  */
 } 
    
-    
-
-
 export default Tasks
-
-/*
-                                {Tasks.allTasks.map((task, i) => {
-                                    if(Tasks.currentTab === "Completed") {  
-                                        
-                                        return (
-                                            task.done === true  && <SingleTask
-                                            task={task.task}
-                                            key={i}
-                                            id={task.id}
-                                            i={i}
-                                            done={task.done}
-                                            /> 
-                                            
-                                        )
-                                        
-                                    } else if (Tasks.currentTab === "Active") {
-                                        return (
-                                            task.done !== true && <SingleTask
-                                            task={task.task}
-                                            key={i}
-                                            id={task.id}
-                                            i={i}
-                                            done={task.done}
-                                            />
-                                        )
-                                        
-                                    }  else {
-                                        return ( 
-                                            <SingleTask
-                                                task={task.task}
-                                                key={i}
-                                                id={task.id}
-                                                i={i}
-                                                done={task.done}
-                                            />
-                                        )
-                                    }
-                            
-                                })}*/ 

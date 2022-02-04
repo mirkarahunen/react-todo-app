@@ -10,31 +10,30 @@ const SingleTask = (props) => {
     const [clicked, setClicked] = useState(false)
     const Tasks = useContext(TaskContext)
     const Theme = useContext(ThemeContext)
-    const [animation, showAnimation] = useState(false)
+    const [completeAnimation, showCompleteAnimation] = useState(false)
+    const [removeCompleteAnimation, setRemoveCompleteAnimation] = useState(false)
+    const [removeTaskAnimation, setRemoveTaskAnimation] = useState(false)
 
-    
     
     const clickedTask = () => {
         const filteredTask = Tasks.allTasks.map(task => task.id === props.id ? {...task, done: !task.done } : task)
-        //Tasks.setFilteredTasks(filteredTask)
 
         if(!clicked) {
             setClicked(true)
-            setTimeout(() => {
-                showAnimation(true)
+            showCompleteAnimation(true)
 
             setTimeout(() => {
-                showAnimation(false)
+                showCompleteAnimation(false)
                 Tasks.setAllTasks(filteredTask)
             }, 2000)
-        }, 1500)
+       
             
         } else {
             setClicked(false)
-            showAnimation(true)
+            setRemoveCompleteAnimation(true)
 
             setTimeout(() => {
-                showAnimation(false)
+                setRemoveCompleteAnimation(false)
                 Tasks.setAllTasks(filteredTask)
            }, 2000)
             Tasks.setAllTasks(filteredTask)
@@ -44,53 +43,71 @@ const SingleTask = (props) => {
     
     const removeTask = () => {
         const newArray = Tasks.allTasks.filter(task => task.task !== props.task)
-        Tasks.setAllTasks(newArray)
+        setRemoveTaskAnimation(true)
+
+        setTimeout(() => {
+            setRemoveTaskAnimation(false)
+            Tasks.setAllTasks(newArray)
+       }, 2000)
+        
     }
 
 
- if(animation) {
-    return (
-            <div className={animation ? 'task task-update animation' : 'task task-update'} 
-                onClick={clickedTask}
+    if(completeAnimation) {
+        return (
+            <div className={completeAnimation ? 'task task-update animation' : 'task task-update'} 
                 key={props.i}>
                 <div className={`container ${Theme.theme} single-task`}>
-                    <h2>Your task has been moved!</h2>
+                    <h2>Your task has been marked done!</h2>
                 </div>
-            </div>
-            
-            
-    )
- } else {
-    return ( 
-        <Draggable draggableId={`${props.id}`} key={props.i} index={props.i} className={`${Theme.theme} `} >
-            {(provided, snapshot) => (
-                <div 
-                    className='wrapper task' 
-                    //
-                    key={props.i} 
-                    ref={provided.innerRef} 
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    >
-                <div className="container single-task" onClick={clickedTask}>
-                    <input type="checkbox" name="checkmark" hidden/>
-                    <label htmlFor="checkmark" className={props.done ? `checkmark done ${Theme.theme}` : `checkmark ${Theme.theme}`} key={props.i}></label>
-                    <p className={ props.done ? "done" : ""} >{props.task}</p>
-                    
-                    
+            </div>     
+        )
+    } 
+    else if(removeCompleteAnimation) {
+        return (
+            <div className={removeCompleteAnimation ? 'task task-update animation' : 'task task-update'} 
+                key={props.i}>
+                <div className={`container ${Theme.theme} single-task`}>
+                    <h2>Your task has been marked undone!</h2>
                 </div>
+            </div>     
+        )
+    }
+    else if(removeTaskAnimation) {
+        return (
+            <div className={removeTaskAnimation ? 'task task-update animation' : 'task task-update'} 
+                key={props.i}>
+                <div className={`container ${Theme.theme} single-task`}>
+                    <h2>Your task has been removed!</h2>
+                </div>
+            </div>     
+        )
+    }
+     else {
+        return ( 
+            <Draggable draggableId={`${props.id}`} key={props.id} index={props.i} className={`${Theme.theme} `} >
+                {(provided, snapshot) => (
+                    <div 
+                        className={`wrapper task ${Theme.theme} `}
+                        key={props.i} 
+                        ref={provided.innerRef} 
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        >
+                    <div className="container single-task" onClick={clickedTask}>
+                        <input type="checkbox" name="checkmark" hidden/>
+                        <label htmlFor="checkmark" className={props.done ? `checkmark done ${Theme.theme}` : `checkmark ${Theme.theme}`} key={props.i}></label>
+                        <p className={ props.done ? "done" : ""} >{props.task}</p>
+                    </div>
 
-                <picture onClick={removeTask}  className='remove'>
-                    <source />
-                    <img src={remove} alt="remove"/>
-                </picture>
-                
-            </div>
-            
-            )}
-             
-        </Draggable>    
-    )
-}
+                    <picture onClick={removeTask}  className='remove'>
+                        <source />
+                        <img src={remove} alt="remove"/>
+                    </picture>
+                </div>
+                )}
+            </Draggable>    
+        )
+    }
 }
 export default SingleTask

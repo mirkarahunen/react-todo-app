@@ -12,12 +12,10 @@ import Tasks from './Components/Tasks/Tasks';
 import TaskNav from './Components/TaskNav/TaskNav';
 
 import TaskProvider from './Components/Context/TaskContext';
-import { TaskContext } from './Components/Context/TaskContext';
 import { ThemeContext } from './Components/Context/ThemeContext';
 import Footer from './Components/Footer/Footer';
 
 const App = () => {
-    const TasksContext = useContext(TaskContext)
     const Theme = useContext(ThemeContext)
 
     return (
@@ -28,7 +26,7 @@ const App = () => {
                     <Header />
                     <CreateTask />
                     <Tasks />
-                    <TaskNav items={TasksContext.allTasks}/>
+                    <TaskNav />
                     <Footer />
                 </div>
                 
